@@ -3,7 +3,9 @@ A3E
 
 Automatic Android App Explorer (A3E) is an automated GUI testing utility for android applications. 
 It is based on Troyd GUI testing framework. It provides two kinds of GUI exploration strategy, 
-Depth-first Exploration and Targeted Exploration. 
+Depth-first Exploration and Targeted Exploration. To learn further, visit a3e [homepage][hm].
+
+[hm]: http://spruce.cs.ucr.edu/a3e
 
 Publications
 ------------
