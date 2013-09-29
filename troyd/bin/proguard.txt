@@ -1,0 +1,6 @@
+# view AndroidManifest.xml #generated:10
+-keep class umd.troyd.Ignite { <init>(...); }
+
+# view AndroidManifest.xml #generated:6
+-keep class umd.troyd.Troy { <init>(...); }
+

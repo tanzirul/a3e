@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android" package="umd.troyd" android:sharedUserId="@string/uid" android:versionCode="1" android:versionName="1.0">
+
+    <uses-sdk android:minSdkVersion="8"/>
+
+    <instrumentation android:name="Troy" android:targetPackage="com.amazon.mShop.android"/>
+    <uses-permission android:name="android.permission.DISABLE_KEYGUARD"/>
+
+    <application android:icon="@drawable/icon" android:label="@string/app_name">
+        <service android:enabled="true" android:exported="true" android:name="Ignite"/>
+    </application>
+
+</manifest>
