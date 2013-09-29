@@ -1,5 +1,6 @@
-/* Copyright (c) 2011-2012,
+/* Copyright (c) 2011-2013,
  *  Jinseong Jeon <jsjeon@cs.umd.edu>
+ *  Tanzirul Azim <mazim002@cs.ucr.edu>
  *  Jeff Foster   <jfoster@cs.umd.edu>
  * All rights reserved.
  *
