@@ -1,19 +1,16 @@
-Troyd
+A3E
 =====
 
-Troyd is an integration testing framework for Android apps.  This tool
-can test apps while interacting with testers via a command-line interface;
-generate scenario-based tests by recording tester commands; and repeat
-generated tests as regression tests.
+Automatic Android App Explorer (A3E) is an automated GUI testing utility for android applications. It is based on Troyd GUI testing framework. It provides two kinds of GUI exploration strategy, Depth-first Exploration and Targeted Exploration. 
 
 Publications
 ------------
 
-* [Troyd: Integration Testing for Android.][tr]
-  Jinseong Jeon and Jeffrey S. Foster.
-  CS-TR-5013, Department of Computer Science, University of Maryland, College Park, Aug 2012.
+* [Targeted and Depth-first Exploration for Systematic Testing of Android Apps][a3e]
+  Tanzirul Azim and Iulian Neamtiu.
+  Department of Computer Science & Engineering, University of California, Riverside, Sep 2013.
 
-[tr]: http://hdl.handle.net/1903/12880
+[a3e]: http://www.cs.ucr.edu/~neamtiu/pubs/oopsla13azim.pdf
 
 Requirements
 ------------
