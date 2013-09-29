@@ -50,18 +50,17 @@ include Commands
 def parse_act_names act_name
 	last_act=""
 	act_name.each_line do |line|
-		print ": "+line+"\n"
+# 		print ": "+line+"\n"
 		last_act=line.split(/:/).last.strip!
-		print ": "+last_act+"\n"
+# 		print ": "+last_act+"\n"
 	end
 	last_act=last_act
 end
 
-def run_app (act, hashActs, startr)
+def run_app (act, startr, noloop)
 	
 	if startr==1
 		ADB.ignite act
-		hashActs[act] = "nil"
 	end
 
 	#SOFAR = "sofar"
@@ -71,113 +70,101 @@ def run_app (act, hashActs, startr)
 	cmds = ["getViews", "getActivities", "back", "down", "up", "menu",
   	"edit", "clear", "search", "checked", "click", "clickLong",
   	"clickOn", "clickIdx", "clickImg", "clickItem", "drag", "clickImgView", "clickImgBtn", "clickTxtView"]
-	input_commands=[]
 	
 
 	# from here just use the get views command and save it to a file
 	#now get input from a file and do as described 
-
-	out= eval "getViews"
-
-	File.open(PARENT+"/"+"test.out", 'w') do |f2|  
+	if noloop==false
+		out= eval "getViews"
+		File.open(PARENT+"/"+"test.out", 'w') do |f2|  
   	
-  	f2.puts out  
-	end  
+  			f2.puts out  
+		end  
 # 	test whether the activity was explored before
-	if File.exist?(PARENT+"/"+act+"_command.txt")
+		if File.exist?(PARENT+"/"+act+"_command.txt")
 # 		prepare for the new command set
-		param="java -Xmx512m -jar TroydWrapper.jar "+PARENT+"/"+"test.out "+PARENT+"/"+act+"_command.txt"
-		system param
+			param="java -Xmx512m -jar TroydWrapper.jar "+PARENT+"/"+"test.out "+PARENT+"/"+act+"_command.txt"
+			system param
 		
-		if File.exist?(PARENT+"/"+act+"_command_history.txt")
-			UTIL.compare_output(PARENT+"/"+act+"_command.txt", PARENT+"/"+act+"_command_history.txt", PARENT+"/"+act+"_command.txt")
-		end
+			if File.exist?(PARENT+"/"+act+"_command_history.txt")
+				UTIL.compare_output(PARENT+"/"+act+"_command.txt", PARENT+"/"+act+"_command_history.txt", PARENT+"/"+act+"_command.txt")
+			end
 		
-	else
+		else
 # 		activity was not explored before
-		param="java -Xmx512m -jar TroydWrapper.jar "+PARENT+"/"+"test.out "+PARENT+"/"+act+"_command.txt"
-		system param
-	end
+			param="java -Xmx512m -jar TroydWrapper.jar "+PARENT+"/"+"test.out "+PARENT+"/"+act+"_command.txt"
+			system param
+		end
 
-	current_act=act
-	print "current activity: "+act+"\n"
-	opt_cmds=ACT.extract_act(PARENT+"/"+act+"_command.txt")
-	last_act=""
-	for c in opt_cmds
-		print "executing command...\n"
-		print c + "\n"
-		out = eval c 
-		print "execution completed.\n"
-		open(PARENT+"/"+act+"_command_history.txt", 'a') { |f|
-  		f.puts c
-		}
-		current_act=current_act + " "
+		current_act=act
+		print "current activity: "+act+"\n"
+		opt_cmds=ACT.extract_act(PARENT+"/"+act+"_command.txt")
+		last_act=""
+		for c in opt_cmds
+			print "executing command...\n"
+			print c + "\n"
+			out = eval c 
+			print "execution completed.\n"
+			open(PARENT+"/"+act+"_command_history.txt", 'a') { |f|
+  			f.puts c
+			}
+			current_act=current_act + " "
 # 		saving the previous activity
-		last_act=current_act.strip!
+			last_act=current_act.strip!
 # 		get all activities
-		current_act= eval "getActivities"
+			current_act= eval "getActivities"
 # 		parse the names
 # now last act is the old activity
-		current_act=parse_act_names current_act
-		if current_act==last_act
+			current_act=parse_act_names current_act
+			if current_act==last_act
 # 			print "unchanged" +"\n"
 # 			sleep(1)
-			run_app current_act, hashActs, 0
-		else
-			print "new activity detected.\n"
-			hashActs[current_act]=last_act
+				run_app current_act, 0, noloop
+			else
+				print "new activity detected.\n"
 # 			last_act=current_act
 # 			sleep(3)
-			run_app current_act, hashActs, 0
-			out= eval "back"
-		end
+				run_app current_act, 0, noloop
+				out= eval "back"
+			end
 		#run_app 
-	end
-	out= eval "back"
-	run_app last_act, hashActs, 0
+		end
+		out= eval "back"
+		run_app last_act, 0, noloop
 	
 	# current_act= eval "getActivities"
 # 	current_act=parse_act_names current_act
 # 	run_app current_act,hashActs,0
-	
-	while true
-  		print "> "
-  		stop = false
-  		$stdin.each_line do |line|
+	else
+		while true
+  			print "> "
+  			stop = false
+  			$stdin.each_line do |line|
 #     	rec_cmds << line if record
-    	cmd = line.split(pattern)[0]
-    	case cmd
-   			when "finish"
-      			stop = true
-      			out = eval line
-      			puts out if out
-    		when "sofar"       # end of one testcase
-      			ADB.ignite act # restart the target app
-    		else
-      			begin
+    		cmd = line.split(pattern)[0]
+    		case cmd
+   				when "finish"
+      				stop = true
+      				out = eval line
+      				puts out if out
+    			when "sofar"       # end of one testcase
+      				ADB.ignite act # restart the target app
+    			else
+      				begin
         
-        			out = eval line if cmds.include? cmd
-        			print "now: " + out + "\n"
-        			puts out if out
-      			rescue SyntaxError => se
-        			puts "unknown command: #{line}"
+        				out = eval line if cmds.include? cmd
+        				print "now: " + out + "\n"
+        				puts out if out
+      				rescue SyntaxError => se
+        				puts "unknown command: #{line}"
 #         			rec_cmds.pop if record
-      			end
-    		end
-    	break
-  		end
-  	break if stop
+      				end
+    			end
+    		break
+  			end
+  		break if stop
+		end
 	end
-
-	# stop emulator and clean up
-	ADB.uninstall #troyd
-	ADB.uninstall pkg
-	avd.stop if use_emulator
-
-	# and make testcase using recorded commands
-	#code = ""
-	#if record
-  	#code += <<CODE
 end
 
 
@@ -190,8 +177,10 @@ avd_opt = "" # e.g. "-no-window"
 record = true
 pkg_file_exists = false
 activities_file_name=""
+noloop=true
 
 Dir.foreach(PARENT) {|f| fn = File.join(PARENT, f); File.delete(fn) if f != '.' && f != '..'}
+
 OptionParser.new do |opts|
   opts.banner = "Usage: ruby #{__FILE__} target.apk [options]"
   opts.on("--avd avd", "your own Android Virtual Device") do |n|
@@ -205,11 +194,14 @@ OptionParser.new do |opts|
   end
   opts.on("--act file", "activity names") do |a|
     activities_file_name = a
-    print "pkg file name "+activities_file_name+"\n"
+#     print "pkg file name "+activities_file_name+"\n"
 	pkg_file_exists = true
   end
   opts.on("--no-rec", "do not record commands") do
     record = false
+  end
+  opts.on("-loop", "run a3e mode") do
+    noloop=false
   end
   opts.on_tail("-h", "--help", "show this message") do
     puts opts
@@ -269,8 +261,7 @@ else
 # 	print "\n package found 2 " + acts[0]+"\n"
 	act=acts[0]
 end
-hashActs=Hash.new
-run_app act, hashActs, 1
+run_app act, 1, noloop
 
 # auto-generated via bin/rec.rb
 require 'test/unit'
