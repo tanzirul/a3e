@@ -34,7 +34,7 @@
 
 require 'rubygems'
 require 'optparse'
-
+#test
 REC = File.dirname(__FILE__)
 PARENT  =File.expand_path(File.dirname(__FILE__))+"/../temp"
 
