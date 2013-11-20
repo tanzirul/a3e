@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="utf-8" standalone="no"?>
+<ActivityGraph>
+<Activity name="com.imdb.mobile.CheckinActivity" >
+<ChildActivity name="com.imdb.mobile.login.GenericLoginActivity" />
+<ChildActivity name="com.imdb.mobile.CheckinActivity" />
+</Activity >
+<Activity name="com.imdb.mobile.util.ClickActions" >
+<ChildActivity name="com.imdb.mobile.tablet.IMDb" />
+<ChildActivity name="com.imdb.mobile.tablet.NewsPage" />
+<ChildActivity name="com.imdb.mobile.tablet.TabletPhotoGallery" />
+<ChildActivity name="com.imdb.mobile.ShowtimesMovieListing" />
+<ChildActivity name="com.imdb.mobile.WebViewActivityWithHeaders" />
+<ChildActivity name="com.imdb.mobile.ShowtimesCinemaListing" />
+<ChildActivity name="com.imdb.mobile.TitleOutline" />
+</Activity >
+<Activity name="com.imdb.mobile.Settings" >
+<ChildActivity name="com.imdb.mobile.login.SigninLoginActivity" />
+</Activity >
+<Activity name="com.imdb.mobile.MoreFragment" >
+<ChildActivity name="com.imdb.mobile.login.SigninLoginActivity" />
+</Activity >
+<Activity name="com.imdb.mobile.tablet.Watchlist" >
+<ChildActivity name="com.imdb.mobile.tablet.IMDb" />
+<ChildActivity name="com.imdb.mobile.login.YourWatchlistLoginActivity" />
+</Activity >
+<Activity name="com.imdb.mobile.login.UserLoginActivity" >
+<ChildActivity name="com.imdb.mobile.login.ForgotPasswordActivity" />
+</Activity >
+<Activity name="com.imdb.mobile.tablet.IMDbTabletTitleListAdapter_Small" >
+<ChildActivity name="com.imdb.mobile.tablet.IMDb" />
+</Activity >
+<Activity name="com.imdb.mobile.sso.SSOActivity" >
+<ChildActivity name="com.imdb.mobile.sso.ResetPasswordActivity" />
+<ChildActivity name="com.imdb.mobile.sso.SSOActivity" />
+</Activity >
+<Activity name="com.imdb.mobile.view.WatchlistButton" >
+<ChildActivity name="com.imdb.mobile.login.GenericLoginActivity" />
+</Activity >
+<Activity name="com.imdb.mobile.login.ForgotPasswordActivity" >
+<ChildActivity name="com.imdb.mobile.login.NextStepActivity" />
+</Activity >
+<Activity name="com.imdb.mobile.MoviesGenres" >
+<ChildActivity name="com.imdb.mobile.MoviesByGenre" />
+</Activity >
+<Activity name="com.imdb.mobile.domain.HistoryItem" >
+<ChildActivity name="com.imdb.mobile.TitleFragment" />
+<ChildActivity name="com.imdb.mobile.tablet.Title" />
+<ChildActivity name="com.imdb.mobile.NameFragment" />
+<ChildActivity name="com.imdb.mobile.tablet.Name" />
+</Activity >
+<Activity name="com.imdb.mobile.History" >
+<ChildActivity name="com.imdb.mobile.IMDbSearch" />
+</Activity >
+<Activity name="com.imdb.mobile.tablet.RatingHistoryDialogFragment" >
+<ChildActivity name="com.imdb.mobile.tablet.IMDb" />
+</Activity >
+<Activity name="com.imdb.mobile.login.InterstitialLoginActivity" >
+<ChildActivity name="com.imdb.mobile.login.UserLoginActivity" />
+<ChildActivity name="com.imdb.mobile.login.UserLoginOAuthActivity" />
+</Activity >
+<Activity name="com.imdb.mobile.view.Springbar" >
+<ChildActivity name="com.imdb.mobile.IMDb" />
+<ChildActivity name="com.imdb.mobile.ShowtimesMovieListing" />
+<ChildActivity name="com.imdb.mobile.ChannelNews" />
+<ChildActivity name="com.imdb.mobile.Watchlist" />
+<ChildActivity name="com.imdb.mobile.MoreFragment" />
+</Activity >
+<Activity name="com.imdb.mobile.domain.VideoDetailsItem" >
+<ChildActivity name="com.imdb.mobile.TrailerMoviePlayer" />
+</Activity >
+<Activity name="com.imdb.mobile.domain.RatingItem" >
+<ChildActivity name="com.imdb.mobile.RatingFragment" />
+</Activity >
+<Activity name="com.imdb.mobile.domain.TopNewsFlyoutItem" >
+<ChildActivity name="com.imdb.mobile.domain.NewsDetail" />
+</Activity >
+<Activity name="com.imdb.mobile.tablet.Title" >
+<ChildActivity name="com.imdb.mobile.login.GenericLoginActivity" />
+</Activity >
+<Activity name="com.imdb.mobile.tablet.HistoryDialogFragment" >
+<ChildActivity name="com.imdb.mobile.IMDbSearch" />
+</Activity >
+<Activity name="com.imdb.mobile.util.PageLoader" >
+<ChildActivity name="com.imdb.mobile.FragmentWrapperActivity" />
+</Activity >
+<Activity name="com.imdb.mobile.Watchlist" >
+<ChildActivity name="com.imdb.mobile.TitleFragment" />
+<ChildActivity name="com.imdb.mobile.RatingFragment" />
+</Activity >
+<Activity name="com.imdb.mobile.login.UserLogoutActivity" >
+<ChildActivity name="com.imdb.mobile.IMDb" />
+</Activity >
+<Activity name="com.imdb.mobile.intents.IntentsHandler" >
+<ChildActivity name="com.imdb.mobile.WebViewActivity" />
+</Activity >
+<Activity name="com.admarvel.android.ads.AdMarvelWebView" >
+<ChildActivity name="com.admarvel.android.ads.AdMarvelActivity" />
+</Activity >
+<Activity name="com.imdb.mobile.RatingFragment" >
+<ChildActivity name="com.imdb.mobile.login.GenericLoginActivity" />
+</Activity >
+<Activity name="com.imdb.mobile.IMDbConstListFragmentWithContextMenu" >
+<ChildActivity name="com.imdb.mobile.RatingFragment" />
+</Activity >
+<Activity name="com.imdb.mobile.TitleFragment" >
+<ChildActivity name="com.imdb.mobile.login.GenericLoginActivity" />
+</Activity >
+<Activity name="com.imdb.mobile.NewFeatureActivity" >
+<ChildActivity name="com.imdb.mobile.NewFeatureActivity" />
+</Activity >
+<Activity name="com.imdb.mobile.WatchlistFirstTimeNotificationsActivity" >
+<ChildActivity name="com.imdb.mobile.WatchlistFirstTimeNotificationsActivity" />
+</Activity >
+</ActivityGraph>
