@@ -70,9 +70,11 @@ This is actually the path that contain the rt.jar or classes.jar file. This file
 by the JVM when a java program runs.
 
 After that, run 
+	
 	./apk2satg.sh your_apk.apk
 	
 The procedure may take several minutes depending on the size of the apk. The output will be two files,
+
 your_apk.apk.g.xml: This xml file will contain the relation between parent and child activties.
 your_apk.apk.g.dot: This dot file is for visualization purpose.
 
