@@ -66,7 +66,7 @@ similar:
 
 	java_runtime_dir = /Library/Java/JavaVirtualMachines/jdk1.7.0_25.jdk/Contents/Home/jre/lib
 
-This is actually the path that contain the rt.jar or classes.jar file. This file contains the initial java classes that are loaded by the JVM when a java program runs.
+This is actually the path that contains the rt.jar or classes.jar file. This file contains the initial java classes that are loaded by the JVM when a java program runs.
 
 After that, run 
 	
