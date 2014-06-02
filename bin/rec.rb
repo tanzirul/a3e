@@ -34,16 +34,16 @@
 
 require 'rubygems'
 require 'optparse'
-#test
+
 REC = File.dirname(__FILE__)
 PARENT  =File.expand_path(File.dirname(__FILE__))+"/../temp"
 
-require "#{REC}/avd"
-require "#{REC}/troyd"
-require "#{REC}/uid"
-require "#{REC}/cmd"
-require "#{REC}/act"
-require "#{REC}/util"
+require_relative 'avd'
+require_relative 'troyd'
+require_relative 'uid'
+require_relative 'cmd'
+require_relative 'act'
+require_relative 'util'
 include Commands
 
 
@@ -202,6 +202,9 @@ OptionParser.new do |opts|
   end
   opts.on("-loop", "run a3e mode") do
     noloop=false
+  end
+  opts.on("-noloop", "run a3e mode") do
+    noloop=true
   end
   opts.on_tail("-h", "--help", "show this message") do
     puts opts

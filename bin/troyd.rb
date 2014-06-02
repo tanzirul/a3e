@@ -47,9 +47,11 @@ module Troyd
 
   def Troyd.rebuild(pkg)
     ADB.uninstall
-    system("cd #{TDIR}; ant -lib libs/guava-12.0.1.jar clean #{QUIET}")
+	system("cd #{TDIR}; ant clean #{QUIET}")
+#     system("cd #{TDIR}; ant clean ")
     rename(pkg)
-    system("cd #{TDIR}; ant -lib libs/guava-12.0.1.jar debug #{QUIET}")
+    system("cd #{TDIR}; ant debug #{QUIET}")
+#     system("cd #{TDIR}; ant debug")
     dbg = TDIR + "/bin/#{TD}-debug.apk"
     apk = TDIR + "/bin/#{TD}.apk"
     Resign.resign(dbg, apk)
