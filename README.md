@@ -33,7 +33,7 @@ to your profile:
 
 The main scripts are written in [Ruby][rb] and require [RubyGems][gem], a Ruby
 package manager, and [Nokogiri][xml], an XML library to manipulate
-manifest files.  This tool is tested under Ruby 2.0 and Android 2.3.6.
+manifest files.  This tool is tested under Ruby 2.0 and Android 4.1.2.
 
 [rb]: http://www.ruby-lang.org/
 [sdk]: http://developer.android.com/sdk/index.html
