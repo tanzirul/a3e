@@ -1,4 +1,4 @@
-/* Copyright (c) 2011-2013,
+/* Copyright (c) 2011-2014,
  *  Jinseong Jeon <jsjeon@cs.umd.edu>
  *  Tanzirul Azim <mazim002@cs.ucr.edu>
  *  Jeff Foster   <jfoster@cs.umd.edu>
@@ -33,7 +33,9 @@
 
 package umd.troyd;
 
-import com.jayway.android.robotium.solo.Solo;
+import java.util.ArrayList;
+
+import com.robotium.solo.Solo;
 
 import android.app.Activity;
 import android.app.Instrumentation;
@@ -46,6 +48,8 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.GridView;
+import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.ScrollView;
 import android.widget.TextView;
@@ -78,6 +82,7 @@ public class Troy extends Instrumentation {
 	@Override
 	public void onStart() {
 		super.onStart();
+		
 		act = startActivitySync(aut);
 		tempClass=this;
 		solo = new Solo(this, act);
@@ -120,6 +125,7 @@ public class Troy extends Instrumentation {
 		clickImgView,
 		clickImgBtn,
 		clickTxtView,
+		dumpGuiStates,
 		getTxtViewCount,
 		getListViewCount,
 		getImgBtnCnt,
@@ -165,12 +171,14 @@ public class Troy extends Instrumentation {
 
 		@Override
 		public void onReceive(Context context, final Intent intent) {
+			
 			final String cmd = intent.getExtras().getString("cmd");
 			// Any features of Instrumentation should not be on the main thread
 			new Thread(new Runnable() {
 				public void run() {
 					switch(Command.valueOf(cmd)) {
 					case getViews: getViews(); break;
+					case dumpGuiStates: dumpGuiStates(); break;
 					//tanzir
 					case clickImgView: 
 						int idx = getIdx(intent);
@@ -259,6 +267,8 @@ public class Troy extends Instrumentation {
 					 // to collect all opened activities
 					//solo.getc
 				}
+
+				
 			}).start();
 		}
 	};
@@ -266,7 +276,8 @@ public class Troy extends Instrumentation {
 	// obtain current objects on the screen
 	private void getViews() {
 		solo = new Solo(new Troy(), solo.getCurrentActivity());
-		for (View v : solo.getCurrentViews()) {
+		ArrayList<View> a=solo.getCurrentViews();
+		for (View v : a) {
 			if(v.isShown()){
 				if (v instanceof TextView) {
 					String ty = v.getClass().getName();
@@ -285,6 +296,22 @@ public class Troy extends Instrumentation {
 //			}
 //		}
 		//solo.getCurrentTextViews(solo.getCurrentViews(ListView.class).get(0))
+	}
+	
+	private void dumpGuiStates()
+	{
+		solo = new Solo(new Troy(), solo.getCurrentActivity());
+		
+		for (View v : solo.getCurrentViews()) {
+			if(v.isShown()){
+				if (v instanceof TextView) {
+					String ty = v.getClass().getName();
+					Log.d(tag, ty + "<:>" + ((TextView)v).getText());
+				} else {
+					Log.d(tag, v.toString());
+				}
+			}
+		}
 	}
 
 	// obtain activities opened so far
@@ -406,6 +433,7 @@ public class Troy extends Instrumentation {
 	private void clickIdx(int idx) {
 		solo.clickInList(idx);
 		Log.d(tag, "clickIdx: " + idx);
+		;
 	}
 
 	// ImageView, ImageButton
@@ -417,7 +445,7 @@ public class Troy extends Instrumentation {
 	//tanzir image view
 	private void clickImgView(int idx){
 		try{
-			if(solo.getCurrentImageViews().size()>idx && solo.getCurrentImageViews().size()>=1)
+			if(solo.getCurrentViews(ImageView.class).size()>idx && solo.getCurrentViews(ImageView.class).size()>=1)
 				solo.clickOnImage(idx);
 		}catch(Exception ex)
 		{
@@ -431,7 +459,7 @@ public class Troy extends Instrumentation {
 	private void clickImgBtn(int idx){
 		try{
 			
-				if(solo.getCurrentImageButtons().size()>idx&&solo.getCurrentImageButtons().size()>=1)
+				if(solo.getCurrentViews(ImageButton.class).size()>idx&&solo.getCurrentViews(ImageButton.class).size()>=1)
 					solo.clickOnImageButton(idx);
 		}catch(Exception ex)
 		{
@@ -448,28 +476,29 @@ public class Troy extends Instrumentation {
 	//tanzir
 	private void getImgViewCount()
 	{
-		Log.d(tag, "ImageViewCount:" + Integer.toString(solo.getCurrentImageViews().size()));
+		Log.d(tag, "ImageViewCount:" + Integer.toString(solo.getCurrentViews(ImageView.class).size()));
 		//return solo.getCurrentImageViews().size();
 	}
 	//tanzir
 	private void getImgBtnCount()
 	{
 		
-		Log.d(tag, "ImageButtonCount:" + Integer.toString(solo.getCurrentImageButtons().size()));
+		Log.d(tag, "ImageButtonCount:" + Integer.toString(solo.getCurrentViews(ImageButton.class).size()));
 		//return solo.getCurrentImageButtons().size();
 	}
 	private void getListViewCount()
 	{
-		Log.d(tag, "ListViewCount" + Integer.toString(solo.getCurrentListViews().size()));
+		Log.d(tag, "ListViewCount" + Integer.toString(solo.getCurrentViews(ListView.class).size()));
 		//return solo.getCurrentListViews().size();
 	}
 	
 	//less than one
 	private void getTxtViewCount(int listViewNo)
 	{
-		if(listViewNo <= solo.getCurrentListViews().size())
+		if(listViewNo <= solo.getCurrentViews(TextView.class).size())
 		{
-			int c=solo.getCurrentTextViews(solo.getCurrentListViews().get(listViewNo)).size();
+			
+			int c=solo.getCurrentViews(TextView.class).size();
 			Log.d(tag, Integer.toString(c));
 			//return c;
 		}
