@@ -247,7 +247,7 @@ shareduid = pkg + ".shareduid.apk"
 Uid.change_uid(apk, shareduid)
 resigned = pkg + ".resigned.apk"
 Resign.resign(shareduid, resigned)
-system("rm -f #{shareduid}")
+# system("rm -f #{shareduid}")
 ADB.install resigned
 APKS = REC + "/../apks"
 system("mv #{resigned} #{APKS}/#{pkg}.apk")

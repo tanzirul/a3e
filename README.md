@@ -19,7 +19,7 @@ Publications
 
 Requirements
 ------------
-
+Note: Java 1.7 and greater is required.
 To get started, install [Android SDK][sdk] first and set paths to Android
 base tools, e.g., adb, aapt, etc.  You can do so by adding the followings
 to your profile:
