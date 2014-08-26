@@ -1,2 +1,2 @@
-/Users/tanzir/Dropbox/PhD/AutoExplorer/code/troyd_tool/troyd/troyd/bin/AndroidManifest.xml : \
-/Users/tanzir/Dropbox/PhD/AutoExplorer/code/troyd_tool/troyd/troyd/AndroidManifest.xml \
+/Users/tanzirulazim/Dropbox/PhD/AutoExplorer/code/a3e/troyd/bin/AndroidManifest.xml : \
+/Users/tanzirulazim/Dropbox/PhD/AutoExplorer/code/a3e/troyd/AndroidManifest.xml \

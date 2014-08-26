@@ -38,8 +38,8 @@ module Uid
   def Uid.change_uid(bef, aft)
     q = " > /dev/null 2>&1"
     dir = rand(36**8).to_s(36) # random string with size 8     
-    system("java -Djava.awt.headless=true -jar #{AT} d -f --no-src --keep-broken-res #{bef} #{dir} #{q}")
-# 	system("java -Djava.awt.headless=true -jar #{AT} d -f --no-src --keep-broken-res #{bef} #{dir} ")
+    system("java -Djava.awt.headless=true -jar #{AT} d -f --no-src --keep-broken-res #{bef} -o #{dir} #{q}")
+	  # system("java -Djava.awt.headless=true -jar #{AT} d -f --no-src --keep-broken-res #{bef} -o #{dir} ")
     meta = dir + "/AndroidManifest.xml"
     f = File.open(meta, 'r')
     doc = Nokogiri::XML(f)
@@ -64,8 +64,8 @@ module Uid
     f = File.open(meta, 'w')
     doc.write_xml_to(f)
     f.close
-    system("java -jar #{AT} b -f #{dir} #{aft} #{q}")
-#     system("java -jar #{AT} b -f #{dir} #{aft} ")
+    system("java -jar #{AT} b -f #{dir} -o #{aft} #{q}")
+    # system("java -jar #{AT} b -f #{dir} -o #{aft} ")
     system("rm -rf #{dir}")
   end
 end
