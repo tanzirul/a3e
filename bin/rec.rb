@@ -57,20 +57,20 @@ def parse_act_names act_name
 	last_act=last_act
 end
 
-def run_app (act, startr, noloop)
+def run_app (act, startr, noloop, record, rec_cmds)
 	
 	if startr==1
 		ADB.ignite act
 	end
 
-	#SOFAR = "sofar"
+# 	SOFAR = "sofar"
 	pattern = /\(|\s|\)/
 
 	# interact with user
 	cmds = ["getViews", "getActivities", "back", "down", "up", "menu",
   	"edit", "clear", "search", "checked", "click", "clickLong",
   	"clickOn", "clickIdx", "clickImg", "clickItem", "drag", "clickImgView", "clickImgBtn", "clickTxtView"]
-	
+# 	rec_cmds = []
 
 	# from here just use the get views command and save it to a file
 	#now get input from a file and do as described 
@@ -119,18 +119,18 @@ def run_app (act, startr, noloop)
 			if current_act==last_act
 # 			print "unchanged" +"\n"
 # 			sleep(1)
-				run_app current_act, 0, noloop
+				run_app current_act, 0, noloop, record, rec_cmds
 			else
 				print "new activity detected.\n"
 # 			last_act=current_act
 # 			sleep(3)
-				run_app current_act, 0, noloop
+				run_app current_act, 0, noloop, record, rec_cmds
 				out= eval "back"
 			end
 		#run_app 
 		end
 		out= eval "back"
-		run_app last_act, 0, noloop
+		run_app last_act, 0, noloop, record, rec_cmds
 	
 	# current_act= eval "getActivities"
 # 	current_act=parse_act_names current_act
@@ -140,7 +140,7 @@ def run_app (act, startr, noloop)
   			print "> "
   			stop = false
   			$stdin.each_line do |line|
-#     	rec_cmds << line if record
+    		rec_cmds << line if record
     		cmd = line.split(pattern)[0]
     		case cmd
    				when "finish"
@@ -157,7 +157,7 @@ def run_app (act, startr, noloop)
         				puts out if out
       				rescue SyntaxError => se
         				puts "unknown command: #{line}"
-#         			rec_cmds.pop if record
+        				rec_cmds.pop if record
       				end
     			end
     		break
@@ -174,13 +174,16 @@ end
 avd_name = "testAVD"
 dev_name = ""
 avd_opt = "" # e.g. "-no-window"
-record = true
+
 pkg_file_exists = false
 activities_file_name=""
 noloop=true
 
 Dir.foreach(PARENT) {|f| fn = File.join(PARENT, f); File.delete(fn) if f != '.' && f != '..'}
-
+SOFAR="sofar"
+pattern = /\(|\s|\)/
+record = true
+rec_cmds = []
 OptionParser.new do |opts|
   opts.banner = "Usage: ruby #{__FILE__} target.apk [options]"
   opts.on("--avd avd", "your own Android Virtual Device") do |n|
@@ -264,16 +267,20 @@ else
 # 	print "\n package found 2 " + acts[0]+"\n"
 	act=acts[0]
 end
-run_app act, 1, noloop
+run_app act, 1, noloop, record, rec_cmds
 
+
+code = ""
+if record
+  code += <<CODE
 # auto-generated via bin/rec.rb
 require 'test/unit'
 require 'timeout'
 
 class TroydTest < Test::Unit::TestCase
 
-  SCRT = File.dirname(__FILE__) + "/../bin"
-  require "\#{SCRT}/cmd"
+#   SCRT = File.dirname(__FILE__) + "/../bin"
+  require_relative '../bin/cmd'
   include Commands
 
   def assert_text(txt)

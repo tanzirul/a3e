@@ -39,7 +39,8 @@ module Troyd
 
   def Troyd.setenv
     aup = "android update project"
-    system("#{aup} -t android-10 -p #{TDIR} #{QUIET}")
+#     system("#{aup} -t android-16 -p #{TDIR} #{QUIET}")
+	system("#{aup} -t android-16 -p #{TDIR} ")
   end
 
   require "#{TROYD}/resign"
@@ -47,11 +48,11 @@ module Troyd
 
   def Troyd.rebuild(pkg)
     ADB.uninstall
-	system("cd #{TDIR}; ant clean #{QUIET}")
-#     system("cd #{TDIR}; ant clean ")
+ 	system("cd #{TDIR}; ant clean #{QUIET}")
+#      system("cd #{TDIR}; ant clean ")
     rename(pkg)
-    system("cd #{TDIR}; ant debug #{QUIET}")
-#     system("cd #{TDIR}; ant debug")
+     system("cd #{TDIR}; ant debug #{QUIET}")
+#      system("cd #{TDIR}; ant debug")
     dbg = TDIR + "/bin/#{TD}-debug.apk"
     apk = TDIR + "/bin/#{TD}.apk"
     Resign.resign(dbg, apk)

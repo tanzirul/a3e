@@ -36,14 +36,16 @@ require 'optparse'
 
 TRUN = File.dirname(__FILE__)
 
-require "#{TRUN}/aapt"
-require "#{TRUN}/avd"
-require "#{TRUN}/troyd"
-require "#{TRUN}/uid"
+require_relative 'aapt'
+require_relative 'avd'
+require_relative 'troyd'
+require_relative 'uid'
 
-avd_name = rand(36**8).to_s(36) # random string with size 8
+# avd_name = rand(36**8).to_s(36) # random string with size 8
+avd_name = "testAVD"
 dev_name = ""
-avd_opt  = "-no-window"
+# avd_opt  = "-no-window"
+avd_opt  = ""
 apks = TRUN + "/../apks"
 only = []
 OptionParser.new do |opts|
@@ -71,7 +73,9 @@ use_emulator = false
 if not ADB.online?
   # start and synchronize with emulator
   avd = AVD.new(avd_name, avd_opt)
-  avd.create
+  if not avd.exists?
+    avd.create
+  end
   avd.start
   use_emulator = true
   sleep(19)
@@ -135,5 +139,5 @@ end
 # stop emulator and clean up
 if use_emulator
   avd.stop
-  avd.delete
+#   avd.delete
 end
