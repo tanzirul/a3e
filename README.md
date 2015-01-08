@@ -19,7 +19,7 @@ Publications
 
 Requirements
 ------------
-Note: Java 1.7 and greater is required.
+Note: JDK 1.7 and greater is required.
 To get started, install [Android SDK][sdk] first and set paths to Android
 base tools, e.g., adb, aapt, etc.  You can do so by adding the followings
 to your profile:
@@ -33,7 +33,7 @@ to your profile:
 
 The main scripts are written in [Ruby][rb] and require [RubyGems][gem], a Ruby
 package manager, and [Nokogiri][xml], an XML library to manipulate
-manifest files.  This tool is tested under Ruby 2.0 and Android 4.1.2.
+manifest files.  This tool is tested under Ruby 2.0 and Android 4.4.2.
 
 [rb]: http://www.ruby-lang.org/
 [sdk]: http://developer.android.com/sdk/index.html
@@ -59,6 +59,10 @@ Targeted exploration
 
 Coming.
 
+Record and Replay
+--------------------
+Feature enabled. Will update details soon.
+
 Static Activity Transition Graph Creation
 ---------------------------------------------
 Modify the following parameter in the wala.properties file as per your system. For example in MacOS X this path may be something
@@ -76,5 +80,17 @@ The procedure may take several minutes depending on the size of the apk. The out
 
 your_apk.apk.g.xml: This xml file will contain the relation between parent and child activties.
 your_apk.apk.g.dot: This dot file is for visualization purpose.
+
+A3E VM
+------------
+To test a3e on your computer without needing to setup everything you can use this ubuntu 14.04 [VM] on virtual box. Make Sure you assign 2 GB RAM to the VM and enable 2D/3D acceleration for smooth use.
+
+[VM]: https://www.dropbox.com/s/dzsh9u80yk8iodx/A3EVM.vdi.zip?dl=0
+User Name: a3e
+Password: a3e_ucr
+
+Open terminal cd into ~/a3e and run following command to test it with Amazon,
+
+	$ ruby bin/rec.rb aut/Amazon-33.apk --no-rec -loop
 
  
