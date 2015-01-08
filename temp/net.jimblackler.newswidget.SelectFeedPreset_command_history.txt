@@ -1,2 +1,0 @@
-clickImgView(1)
-click("Most popular")
