@@ -96,7 +96,7 @@ module ADB
   FAIL = "Failure"
 
   def ADB.uninstall(pkg=PKG)
-    sync_msg("#{@@acmd} uninstall #{pkg}", [SUCC, FAIL])
+    sync_msg("#{@@acmd} shell pm uninstall #{pkg}", [SUCC, FAIL])
   end
 
   def ADB.install(apk)
